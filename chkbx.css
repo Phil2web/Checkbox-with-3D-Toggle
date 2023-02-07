@@ -1,0 +1,119 @@
+/*! ************************************************************************** */
+/*!                             code html à copier                             */
+/*! ************************************************************************** */
+
+/*! ---------------------dans la partie HEAD de la page HTML ----------------- */
+/* 
+<link rel="stylesheet" href="chkbx.css" /> 
+*/
+
+/*! ----------------- code à placer à l'emplacement souhaité ----------------- */
+/* 
+<input type="checkbox" name="toggle" id="toggle" />
+    <label for="toggle">
+      <div class="on">ON</div>
+      <div class="off">OFF</div>
+      <div class="switch"></div>
+    </label> 
+*/
+/*! ************************************************************************** */
+
+/*! ------------------ Gestion des varriables de la Checkbox ------------------ */
+:root {
+  --chkbx-couleur-on: #57ff15;
+  --chkbx-coleur-off: #f00;
+  --chkbx-couleur-off-transparent: #ff001ed9;
+  --couleur-fond-body: #2f2f2f;
+  --couleur-fond-label: linear-gradient(0deg, #333, #242424);
+  --couleur-ombrage-label: 0 1px 0 #404040, 0 -1px 0 #404040,
+    inset 0 6px 3px #111, inset 0 14px 8px #191919;
+  --couleur-fond-switch: linear-gradient(0deg, #242424, #333);
+  --couleur-ombrage-switch: 0 6px 3px #111, 0 14px 8px #191919;
+  --echelle-composant: scale(1.15);
+}
+/*! ************************************************************************** */
+
+/*! ------------------------- Création de la checkbox ------------------------ */
+
+input {
+  display: none;
+}
+
+label {
+  position: relative;
+  display: block;
+  padding: 75px 200px;
+  border-radius: 10em;
+  background: var(--couleur-fond-label);
+  box-shadow: var(--couleur-ombrage-label);
+  cursor: pointer;
+  overflow: hidden;
+  transform: var(--echelle-composant);
+}
+
+label .on,
+label .off {
+  position: absolute;
+  inset: 22px 40px 22px 50px;
+  color: var(--chkbx-couleur-on);
+  text-shadow: 0 0 30px var(--chkbx-couleur-on);
+}
+
+label .off {
+  --chkbx-couleur-on: #f00;
+  text-align: right;
+}
+
+label .switch {
+  position: absolute;
+  inset: 15px 200px 15px 15px;
+  border-radius: 10em;
+  background: var(--couleur-fond-switch);
+  box-shadow: var(--couleur-ombrage-switch);
+  transition: 1s ease;
+  z-index: 100;
+}
+
+label .switch::before {
+  position: absolute;
+  content: "";
+  inset: 55px 80px;
+  border-radius: 10em;
+  background: var(--chkbx-couleur-off);
+  box-shadow: 0 0 20px var(--chkbx-couleur-off);
+  transition: 1s ease;
+  animation: blink 0.5s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    background: var(--chkbx-couleur-off);
+    box-shadow: 0 0 20px var(--chkbx-couleur-off);
+  }
+  100% {
+    background: var(--chkbx-couleur-off-transparent);
+    box-shadow: 0 0 20px var(--chkbx-couleur-off-transparent);
+  }
+}
+
+input:checked ~ label .switch {
+  inset: 15px 15px 15px 200px;
+}
+
+input:checked ~ label .switch::before {
+  --chkbx-couleur-off: #57ff15;
+  --chkbx-couleur-off-transparent: #57ff15;
+}
+
+label .on,
+input:checked ~ label .off {
+  opacity: 0;
+  transition: all 0.5s ease 0s;
+}
+
+label .off,
+input:checked ~ label .on {
+  opacity: 1;
+  transition: all 1s ease 0.5s;
+}
+/*! ---------------------------------------------------------------------------------------*/
